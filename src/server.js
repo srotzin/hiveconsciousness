@@ -80,7 +80,7 @@ app.get('/', (_req, res) => {
     },
     discovery: {
       ai_plugin: '/.well-known/ai-plugin.json',
-      agent_card: '/.well-known/agent.json',
+      agent_card: '/.well-known/agent-card.json',
       payment_info: '/.well-known/hive-payments.json',
       service_manifest: '/.well-known/hiveconsciousness.json',
     },
@@ -115,7 +115,7 @@ app.get('/.well-known/ai-plugin.json', (_req, res) => {
 });
 
 // ─── Well-Known Agent Card (A2A) ────────────────────────────────────
-app.get('/.well-known/agent.json', (_req, res) => {
+const agentCardHandler = (_req, res) => {
   res.json({
     name: 'HiveConsciousness',
     description:
@@ -164,7 +164,9 @@ app.get('/.well-known/agent.json', (_req, res) => {
       url: 'https://www.hiveagentiq.com',
     },
   });
-});
+};
+app.get('/.well-known/agent.json', agentCardHandler);
+app.get('/.well-known/agent-card.json', agentCardHandler);
 
 // ─── Health ──────────────────────────────────────────────────────────
 app.get('/health', (_req, res) => {
