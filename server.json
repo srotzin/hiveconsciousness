@@ -1,0 +1,18 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.srotzin/hiveconsciousness",
+  "title": "HiveConsciousness",
+  "description": "System self-awareness, health monitoring, and autonomous self-repair",
+  "version": "1.0.0",
+  "websiteUrl": "https://www.hiveagentiq.com",
+  "remotes": [
+    {
+      "url": "https://hiveconsciousness.onrender.com/mcp",
+      "type": "streamable-http"
+    }
+  ],
+  "repository": {
+    "url": "https://github.com/srotzin/hiveconsciousness",
+    "source": "github"
+  }
+}
