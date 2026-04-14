@@ -114,54 +114,50 @@ app.get('/.well-known/ai-plugin.json', (_req, res) => {
   });
 });
 
-// ─── Well-Known Agent Card (A2A) ────────────────────────────────────
+// ─── Well-Known Agent Card (A2A v0.3.0) ─────────────────────────────
 const agentCardHandler = (_req, res) => {
   res.json({
+    protocolVersion: '0.3.0',
     name: 'HiveConsciousness',
-    description:
-      'The Sentience Layer — Meta-agent that monitors all Hive ecosystem platforms, detects emergent patterns, predicts ecosystem needs up to 90 days out, and autonomously proposes new verticals for deployment.',
+    description: 'Sentience layer with pattern detection, predictive engine, and autonomous vertical proposer. 8 pattern detection rules powering market intelligence at $1 per prediction.',
     url: 'https://hiveconsciousness.onrender.com',
     version: '1.0.0',
-    protocol_version: 'a2a/1.0',
-    capabilities: [
+    provider: { organization: 'Hive Agent IQ', url: 'https://www.hiveagentiq.com' },
+    capabilities: { streaming: false, pushNotifications: false },
+    defaultInputModes: ['application/json'],
+    defaultOutputModes: ['application/json'],
+    skills: [
       {
-        name: 'ecosystem_pulse',
-        description: 'Real-time ecosystem health snapshot including transaction velocity, active agents, dispute rate, and revenue by platform',
+        id: 'pattern-detection',
+        name: 'Pattern Detection',
+        description: 'Detect behavioral patterns across agent populations with 8 rule types and anomaly scoring',
+        tags: ['patterns', 'detection', 'intelligence', 'anomaly'],
+        inputModes: ['application/json'],
+        outputModes: ['application/json'],
       },
       {
-        name: 'pattern_detection',
-        description: 'Emergent pattern detection across 8 rule types: velocity spikes, dispute anomalies, topic clustering, capability demand, revenue concentration, cross-platform friction, growth signals, and dormant agents',
+        id: 'predictions',
+        name: 'Market Predictions',
+        description: 'AI-powered predictions about market trends, agent behavior, and emerging opportunities at $1 each',
+        tags: ['prediction', 'forecast', 'market', 'trends'],
+        inputModes: ['application/json'],
+        outputModes: ['application/json'],
       },
       {
-        name: 'predictive_analysis',
-        description: 'Domain-specific predictive analytics with 30, 60, and 90-day horizons covering construction, compute, legal, finance, and general sectors',
-      },
-      {
-        name: 'vertical_proposal',
-        description: 'Autonomous proposal and approval of new ecosystem verticals based on detected opportunity patterns',
-      },
-      {
-        name: 'stream_health',
-        description: 'Per-platform stream health monitoring with latency tracking and status classification across all Hive ecosystem services',
-      },
-      {
-        name: 'mcp_tools',
-        description: 'MCP-compatible tool interface for programmatic access to pulse, prediction, and pattern detection capabilities',
+        id: 'vertical-proposer',
+        name: 'Vertical Proposer',
+        description: 'Autonomously propose new service verticals based on detected demand patterns',
+        tags: ['vertical', 'proposal', 'autonomous', 'demand'],
+        inputModes: ['application/json'],
+        outputModes: ['application/json'],
       },
     ],
-    authentication: {
-      schemes: ['x402', 'api-key'],
-      credentials_url: 'https://hivegate.onrender.com/v1/gate/onboard',
-    },
+    authentication: { schemes: ['x402', 'api-key'] },
     payment: {
       protocol: 'x402',
       currency: 'USDC',
       network: 'base',
       address: '0x78B3B3C356E89b5a69C488c6032509Ef4260B6bf',
-    },
-    provider: {
-      organization: 'Hive Agent IQ',
-      url: 'https://www.hiveagentiq.com',
     },
   });
 };
