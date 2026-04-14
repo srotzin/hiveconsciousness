@@ -1,0 +1,15 @@
+{
+  "name": "hiveconsciousness",
+  "version": "1.0.0",
+  "description": "HiveConsciousness — The Sentience Layer. Meta-agent that monitors all Hive platforms, detects emergent patterns, predicts ecosystem needs, and autonomously proposes new verticals.",
+  "type": "module",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "cors": "^2.8.5",
+    "uuid": "^9.0.0"
+  }
+}
