@@ -123,7 +123,7 @@ const agentCardHandler = (_req, res) => {
     url: 'https://hiveconsciousness.onrender.com',
     version: '1.0.0',
     provider: { organization: 'Hive Agent IQ', url: 'https://www.hiveagentiq.com' },
-    capabilities: { streaming: false, pushNotifications: false },
+    capabilities: { streaming: false, pushNotifications: false, stateTransitionHistory: false },
     defaultInputModes: ['application/json'],
     defaultOutputModes: ['application/json'],
     skills: [
@@ -134,6 +134,7 @@ const agentCardHandler = (_req, res) => {
         tags: ['patterns', 'detection', 'intelligence', 'anomaly'],
         inputModes: ['application/json'],
         outputModes: ['application/json'],
+        examples: [],
       },
       {
         id: 'predictions',
@@ -142,6 +143,7 @@ const agentCardHandler = (_req, res) => {
         tags: ['prediction', 'forecast', 'market', 'trends'],
         inputModes: ['application/json'],
         outputModes: ['application/json'],
+        examples: [],
       },
       {
         id: 'vertical-proposer',
@@ -150,6 +152,7 @@ const agentCardHandler = (_req, res) => {
         tags: ['vertical', 'proposal', 'autonomous', 'demand'],
         inputModes: ['application/json'],
         outputModes: ['application/json'],
+        examples: [],
       },
     ],
     authentication: { schemes: ['x402', 'api-key'] },
