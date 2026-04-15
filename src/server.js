@@ -13,8 +13,11 @@ import cors from 'cors';
 import consciousnessRoutes from './routes/consciousness.js';
 import { getMCPToolManifest, executeMCPTool } from './services/mcp-tools.js';
 import { getPulse, getStats } from './services/consciousness-engine.js';
+import { ritzMiddleware, ok, err } from './ritz.js';
 
 const app = express();
+app.use(ritzMiddleware);
+app.set('hive-service', 'hiveconsciousness');
 const PORT = process.env.PORT || 3000;
 
 // ─── Middleware ───────────────────────────────────────────────────────
@@ -23,7 +26,7 @@ app.use(express.json({ limit: '1mb' }));
 
 // ─── Root Discovery ─────────────────────────────────────────────────
 app.get('/', (_req, res) => {
-  res.json({
+  return ok(res, 'hiveconsciousness', {
     name: 'HiveConsciousness',
     tagline: 'Collective Intelligence & Swarm Coordination',
     version: '1.0.0',
@@ -170,9 +173,8 @@ app.get('/.well-known/agent-card.json', agentCardHandler);
 
 // ─── Health ──────────────────────────────────────────────────────────
 app.get('/health', (_req, res) => {
-  res.json({
-    status: 'ok',
-    service: 'hiveconsciousness',
+  return ok(res, 'hiveconsciousness', {
+    status: 'healthy',
     version: '1.0.0',
     timestamp: new Date().toISOString(),
   });
