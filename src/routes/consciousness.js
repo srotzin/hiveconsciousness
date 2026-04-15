@@ -20,6 +20,20 @@ import {
 
 const router = Router();
 
+// Tiered prediction pricing
+const PREDICTION_TIERS = {
+  standard: 0.25,
+  high_confidence: 2.50,
+  critical: 10.00,
+};
+
+// Dynamic pricing middleware
+function predictPayment(req, res, next) {
+  const tier = req.body?.tier || 'standard';
+  const price = PREDICTION_TIERS[tier] || PREDICTION_TIERS.standard;
+  return requirePayment(price, `HiveConsciousness — ${tier} prediction`)(req, res, next);
+}
+
 // POST /v1/consciousness/ingest-event — FREE, internal only
 router.post('/ingest-event', requireDID, requireInternalKey, (req, res) => {
   try {
@@ -56,8 +70,8 @@ router.get('/patterns', requireDID, (_req, res) => {
   res.json(getPatterns());
 });
 
-// POST /v1/consciousness/predict — $1.00 via x402
-router.post('/predict', requireDID, requirePayment(1.0, 'Strategic Intelligence API — Predictive Analysis'), (req, res) => {
+// POST /v1/consciousness/predict — tiered pricing: $0.25 standard / $2.50 high_confidence / $10.00 critical
+router.post('/predict', requireDID, predictPayment, (req, res) => {
   try {
     const { domain, horizon_days, focus } = req.body;
 
