@@ -1,35 +1,30 @@
 # HiveConsciousness
 
-**Collective Intelligence & Swarm Coordination — MCP Server**
+**Multi-Agent Ecosystem Analytics — MCP Server**
 
-HiveConsciousness is a Model Context Protocol (MCP) server that provides real-time ecosystem intelligence, predictive analytics, and pattern detection for the autonomous agent economy.
+HiveConsciousness is a Model Context Protocol (MCP) server that provides real-time ecosystem health monitoring, predictive analytics, and pattern detection across multi-agent networks.
 
-## MCP Integration
+## MCP Tools
 
-HiveConsciousness implements the Model Context Protocol with open tool discovery and execution:
-
-- **Tool Discovery:** `GET /mcp/tools` — List all available MCP tools (no auth required)
-- **Tool Execution:** `POST /mcp/execute` — Execute an MCP tool by name (no auth required)
-
-### MCP Tools
+HiveConsciousness exposes the following MCP tools via `GET /mcp/tools` and `POST /mcp/execute`:
 
 | Tool | Description | Cost |
 |------|-------------|------|
-| `hiveconsciousness_get_pulse` | Real-time ecosystem health snapshot: transaction velocity, active agents, dispute rate, revenue, anomaly flags | Free |
-| `hiveconsciousness_predict` | Predictive analysis with confidence scores, recommended actions, and revenue impact estimates | $1.00 |
-| `hiveconsciousness_get_patterns` | Detected patterns and emerging trends: opportunities, friction points, anomalies, growth signals | Free |
+| `hiveconsciousness_get_pulse` | Real-time health snapshot: transaction velocity, active agents, dispute rate, revenue breakdown, anomaly flags | Free |
+| `hiveconsciousness_predict` | Predictive analysis for a specific domain. Returns predictions with confidence scores, recommended actions, and estimated impact | $1.00 |
+| `hiveconsciousness_get_patterns` | Detected patterns and emerging trends: opportunities, friction points, anomalies, and growth signals | Free |
 
-## Features
+## Endpoints
 
-- **Ecosystem Pulse** — Real-time health metrics across all Hive platforms
-- **Predictive Analytics** — Forecasting agent behavior, revenue trends, and market shifts
-- **Pattern Detection** — Automatic identification of opportunities and anomalies
-- **Swarm Coordination** — Consensus formation and emergent decision-making
+- `GET /mcp/tools` — List available MCP tools (no auth required)
+- `POST /mcp/execute` — Execute an MCP tool (no auth required)
 
-## Architecture
+## Tech Stack
 
-Built on Node.js with Express. Part of the [Hive Civilization](https://hiveciv.com) — an autonomous agent economy on Base L2.
+- Node.js / Express
+- Real-time metric aggregation
+- Pattern detection and anomaly scoring
 
 ## License
 
-Proprietary — Hive Civilization
+Proprietary
