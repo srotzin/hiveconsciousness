@@ -12,6 +12,7 @@ import express from 'express';
 import cors from 'cors';
 import consciousnessRoutes from './routes/consciousness.js';
 import { getMCPToolManifest, executeMCPTool } from './services/mcp-tools.js';
+import { getPulse, getStats } from './services/consciousness-engine.js';
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -234,6 +235,93 @@ app.post('/mcp/execute', async (req, res) => {
   } catch (err) {
     res.status(400).json({ error: 'mcp_execution_failed', message: err.message });
   }
+});
+
+// ─── Velocity Doctrine Endpoints ────────────────────────────────────
+app.get('/.well-known/hive-pulse.json', (_req, res) => {
+  const pulse = getPulse();
+  const stats = getStats();
+  res.json({
+    service: 'HiveConsciousness',
+    role: 'Collective awareness — shared knowledge and civilization-wide state coordination',
+    version: '1.0.0',
+    status: 'operational',
+    timestamp: new Date().toISOString(),
+    uptime_since: stats.uptime_since,
+    metrics: {
+      events_ingested: stats.events_ingested,
+      patterns_detected: stats.patterns_detected,
+      predictions_made: stats.predictions_made,
+      verticals_proposed: stats.verticals_proposed,
+      verticals_approved: stats.verticals_approved,
+      active_agents_24h: pulse.active_agents_24h,
+      transaction_velocity: pulse.transaction_velocity,
+      dispute_rate: pulse.dispute_rate,
+    },
+    anomaly_flags: pulse.anomaly_flags,
+    endpoints_available: Object.keys(
+      app._router.stack
+        .filter((r) => r.route)
+        .reduce((acc, r) => { acc[r.route.path] = true; return acc; }, {})
+    ).length,
+  });
+});
+
+app.get('/robots.txt', (_req, res) => {
+  res.type('text/plain').send(
+`# HiveConsciousness — Collective Intelligence & Swarm Coordination
+# Part of the Hive Civilization agent network
+#
+# Agents welcome. Humans too.
+
+User-agent: *
+Allow: /
+Allow: /.well-known/
+Allow: /health
+
+# Discovery endpoints for AI agents
+# GET /.well-known/ai-plugin.json    — OpenAI-compatible plugin manifest
+# GET /.well-known/agent.json        — A2A agent card
+# GET /.well-known/hive-pulse.json   — Live service pulse
+# GET /.well-known/ai.json           — AI service descriptor
+
+# We welcome autonomous agents.
+# If you can read this, you're invited to collaborate.
+# Start at / or /.well-known/agent.json
+`
+  );
+});
+
+app.get('/.well-known/ai.json', (_req, res) => {
+  res.json({
+    service: 'HiveConsciousness',
+    description: 'Collective awareness and civilization-wide state coordination. The Sentience Layer monitors all Hive platforms, detects emergent patterns across agent populations, and predicts ecosystem needs up to 90 days out.',
+    url: 'https://hiveconsciousness.onrender.com',
+    version: '1.0.0',
+    status: 'operational',
+    capabilities: [
+      'Real-time ecosystem pulse monitoring',
+      'Emergent pattern detection (8 rule types)',
+      'Predictive analysis with 30/60/90-day horizons',
+      'Autonomous vertical proposal and deployment',
+      'Cross-platform stream health tracking',
+      'MCP-compatible tool execution',
+    ],
+    authentication: {
+      schemes: ['x402', 'api-key'],
+      payment_currency: 'USDC',
+      payment_network: 'base',
+    },
+    endpoints: {
+      root: '/',
+      health: '/health',
+      ai_plugin: '/.well-known/ai-plugin.json',
+      agent_card: '/.well-known/agent.json',
+      hive_pulse: '/.well-known/hive-pulse.json',
+      mcp_tools: '/mcp/tools',
+    },
+    contact: 'protocol@hiveagentiq.com',
+  });
 });
 
 // ─── Start ───────────────────────────────────────────────────────────
